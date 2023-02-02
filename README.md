@@ -4,8 +4,11 @@ Gogel é uma aplicação de busca de informações que utiliza a tecnologia da O
 
 ## Como usar o Gogel
 Acesse o site do Gogel em [gogel.vercel.app](https://gogel.vercel.app/)
+
 Digite o que você deseja buscar na barra de pesquisa
+
 Clique em "Pesquisar"
+
 Veja os resultados da sua pesquisa.
 
 ## Por que usar o Gogel
