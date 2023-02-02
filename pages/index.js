@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./index.module.css";
 
 export default function Home() {
-  const [animalInput, setAnimalInput] = useState("");
+  const [textInput, setATextInput] = useState("");
   const [result, setResult] = useState();
 
   async function onSubmit(event) {
@@ -14,16 +14,17 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ animal: animalInput }),
+        body: JSON.stringify({ input: textInput }),
       });
 
       const data = await response.json();
+      console.log(data)
       if (response.status !== 200) {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
-
-      setResult(data.result);
-      setAnimalInput("");
+      // JSON.stringify(data, null, 2);
+      setResult(data.result.choices[0].text);
+      setATextInput("");
     } catch(error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -35,21 +36,21 @@ export default function Home() {
     <div>
       <Head>
         <title>OpenAI Quickstart</title>
-        <link rel="icon" href="/dog.png" />
+        <link rel="icon" href="/gogel.png" />
       </Head>
 
       <main className={styles.main}>
-        <img src="/dog.png" className={styles.icon} />
-        <h3>Name my pet</h3>
+        <img src="/gogel.png" className={styles.icon} />
+        <h3>Pesquisa OpenAI</h3>
         <form onSubmit={onSubmit}>
-          <input
+          <textarea
             type="text"
-            name="animal"
-            placeholder="Enter an animal"
-            value={animalInput}
-            onChange={(e) => setAnimalInput(e.target.value)}
+            name="search"
+            placeholder="Faça uma pesquisa"
+            value={textInput}
+            onChange={(e) => setATextInput(e.target.value)}
           />
-          <input type="submit" value="Generate names" />
+          <input type="submit" value="Perguntar" />
         </form>
         <div className={styles.result}>{result}</div>
       </main>
