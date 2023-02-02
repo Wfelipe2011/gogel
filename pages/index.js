@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>OpenAI Quickstart</title>
+        <title>Gogel</title>
         <link rel="icon" href="/gogel.png" />
       </Head>
 
@@ -51,7 +51,7 @@ export default function Home() {
             value={textInput}
             onChange={(e) => setATextInput(e.target.value)}
           />
-          <input type="submit" value="Perguntar" />
+          <input type="submit" value="Pesquisar" />
         </form>
         <div className={styles.result}>{result}</div>
       </main>
