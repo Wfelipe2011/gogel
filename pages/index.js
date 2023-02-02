@@ -18,9 +18,9 @@ export default function Home() {
       });
 
       const data = await response.json();
-      console.log(data)
       if (response.status !== 200) {
-        throw data.error || new Error(`Request failed with status ${response.status}`);
+        console.error(data.error);
+        throw data.error || new Error(`Tente novamente`);
       }
       // JSON.stringify(data, null, 2);
       setResult(data.result.choices[0].text);
@@ -46,6 +46,7 @@ export default function Home() {
           <textarea
             type="text"
             name="search"
+            rows={3}
             placeholder="Faça uma pesquisa"
             value={textInput}
             onChange={(e) => setATextInput(e.target.value)}
