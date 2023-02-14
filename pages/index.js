@@ -88,9 +88,9 @@ export default function Home() {
         </form>
         <div className={styles.result}>{result}</div>
         <div className={styles.result}>
-          {cost.price && (
+          {cost.price ? (
             <p>Preço: R$ {cost.price.toFixed(2)}</p>
-          )}
+          ): null}
         </div>
       </main>
     </div>
