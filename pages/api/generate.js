@@ -15,9 +15,16 @@ export default async function (req, res) {
     });
     return;
   }
-
-  let input = `${req.body.input || ''}
-  Responda em português de forma informal, de acordo com o contexto e de forma resumida.`;
+  let input = ''
+  if(req.body.input.length < 300){
+    input = `Ajude-me com o seguinte texto:
+    ${req.body.input || ''}
+    Responda em português de forma informal, imitando Alexa, de acordo com o contexto e de forma resumida.`;
+  }else {
+    input = `
+    ${req.body.input || ''}
+    Responda em português de acordo com o contexto.`
+  }
 
   async function createCompletion() {
     try {
@@ -25,7 +32,7 @@ export default async function (req, res) {
         model: "text-davinci-003",
         prompt: input,
         max_tokens: 700,
-        temperature: 0.3,
+        temperature: 0.5,
       });
       res.status(200).json({ result: completion.data });
     } catch (error) {

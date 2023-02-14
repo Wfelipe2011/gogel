@@ -17,6 +17,8 @@ export default function Home() {
   });
 
   async function onSubmit(event) {
+    setATextInput((prev) => prev.trim())
+
     event.preventDefault();
     try {
       const response = await fetch("/api/generate", {
@@ -82,6 +84,9 @@ export default function Home() {
             onChange={(e) => {
               setATextInput(e.target.value);
               autoSizeTextarea(e.target.value)
+            }}
+            onKeyUp={(e) => {
+              e.key === "Enter" && onSubmit(e);
             }}
           />
           <input type="submit" value="Pesquisar" />
