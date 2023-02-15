@@ -6,7 +6,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export default async function (req, res) {
-  let attempts = 0;
+  let attempts = 1;
   if (!configuration.apiKey) {
     res.status(500).json({
       error: {
@@ -16,14 +16,13 @@ export default async function (req, res) {
     return;
   }
   let input = ''
-  if(req.body.input.length < 300){
+  if(req.body.input.length < 50){
     input = `Ajude-me com o seguinte texto:
     ${req.body.input || ''}
-    Responda em português de forma informal, imitando Alexa, de acordo com o contexto e de forma resumida.`;
+    Responda em português imitando ChatGPT.`;
   }else {
-    input = `
-    ${req.body.input || ''}
-    Responda em português de acordo com o contexto.`
+    input = `${req.body.input || ''}
+    Responda em português.`
   }
 
   async function createCompletion() {
@@ -32,12 +31,12 @@ export default async function (req, res) {
         model: "text-davinci-003",
         prompt: input,
         max_tokens: 700,
-        temperature: 0.5,
+        temperature: 0.3,
       });
       res.status(200).json({ result: completion.data });
     } catch (error) {
-      if (attempts < 3) {
-        await sleep(1000);
+      if (attempts < 10) {
+        await sleep(800 * attempts);
         await createCompletion();
         return;
       }
