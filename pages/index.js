@@ -85,9 +85,6 @@ export default function Home() {
               setATextInput(e.target.value);
               autoSizeTextarea(e.target.value)
             }}
-            onKeyUp={(e) => {
-              e.key === "Enter" && onSubmit(e);
-            }}
           />
           <input type="submit" value="Pesquisar" />
         </form>
