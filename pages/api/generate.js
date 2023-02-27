@@ -16,26 +16,20 @@ export default async function (req, res) {
     return;
   }
   let input = ''
-  if(req.body.input.length < 50){
-    input = `Ajude-me com o seguinte texto:
-    ${req.body.input || ''}
-    Responda em português imitando ChatGPT.`;
-  }else {
-    input = `${req.body.input || ''}
-    Responda em português.`
-  }
+
+  input = `Responda em português: ${req.body.input || ''}`;
 
   async function createCompletion() {
     try {
       const completion = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: input,
-        max_tokens: 700,
+        max_tokens: 10000,
         temperature: 0.3,
       });
       res.status(200).json({ result: completion.data });
     } catch (error) {
-      if (attempts < 10) {
+      if (attempts < 25) {
         await sleep(800 * attempts);
         await createCompletion();
         return;
